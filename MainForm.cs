@@ -6,7 +6,7 @@ namespace imslicer
 {
 
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private Point rectStartPoint;
         private Point rectEndPoint;
@@ -16,7 +16,7 @@ namespace imslicer
         private Size noSize = new Size(0, 0);
         private int shortDistance = 50;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -44,7 +44,7 @@ namespace imslicer
         // Define rectangular selection region on mouse move
         private void pictureBoxMain_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
+            if (e.Button != MouseButtons.Left || rect.Contains(e.Location))
                 return;
             rectEndPoint = e.Location;
             rect.Location = new Point(
@@ -67,7 +67,7 @@ namespace imslicer
                 }
             }
         }
-
+        // Clear rectangle if mouse clicked outside area
         private void pictureBoxMain_MouseClick(object sender, MouseEventArgs e)
         {
             if (isClose(rectEndPoint, e.Location) || rect.Contains(e.Location))
@@ -84,14 +84,12 @@ namespace imslicer
             if (dist < shortDistance)
                 return true;
             else
-                return false;
-                
+                return false;       
         }
 
         private void pictureBoxMain_Resize(object sender, EventArgs e)
         {
-            Control control = (Control)sender;
-
+            //ToDo
         }
     }
 }
